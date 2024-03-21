@@ -5,7 +5,7 @@
         type="textarea" :autosize="{
         minRows: 1,
         maxRows: 5,
-      }" @keydown.enter="stores.handleEnter" />
+      }" @keydown.enter="stores.handleEnter" @focus="stores.checkLogin" />
       <n-button type="primary" @click="stores.handleEnter">
         发送
       </n-button>
@@ -16,4 +16,5 @@
 import '../assets/send.css'
 import { useUserStore } from '@/stores/index'
 const stores = useUserStore()
+
 </script>
