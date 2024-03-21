@@ -1,10 +1,10 @@
 <template>
   <div class="app">
-    <setting />
-    <home v-if="stores.Dialog_List.length === 0" />
-    <dialogp v-else />
-    <send v-if="stores.IS" />
-    <send-loading v-else />
+    <ai-setting />
+    <ai-home v-if="stores.dialog_list.length === 0" />
+    <ai-dialog v-else />
+    <ai-send v-if="stores.dialog_is" />
+    <ai-send-loading v-else />
   </div>
 </template>
 <script setup lang="ts">

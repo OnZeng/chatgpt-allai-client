@@ -3,11 +3,13 @@ import { dialog_http } from "@/API/index";
 import { output } from "@/utils/index";
 export const useUserStore = defineStore("userInfo", () => {
   //控制对话是否正在进行中
-  const IS = ref(true);
+  const dialog_is = ref(true);
+  //中止对话
+  const dialog_finish=ref(false)
   //是否显示对话
-  const Dialog_Laoding = ref(false);
+  const dialog_laoding = ref(false);
   //初始化静态数据
-  const List = ref([
+  const list = ref([
     {
       role: "🧐 提出复杂问题",
       content: "我可以为我挑剔的只吃橙色食物的孩子做什么饭?",
@@ -22,19 +24,19 @@ export const useUserStore = defineStore("userInfo", () => {
     },
   ]);
   //账号信息
-  const Account = ref({
+  const account = ref({
     Avatar: "https://img.lzxjack.top:99/202203311718517.webp",
     AI_Icon: "_nuxt/assets/images/icon.png",
   });
   //模型
-  const Chatgpt_Model = ref({
+  const chatgpt_model = ref({
     model: "gpt-3.5-turbo",
     temperature: 0.5,
   });
   //当前对话记录
-  const Dialog_List: any = ref([]);
+  const dialog_list: any = ref([]);
   //当前角色
-  const MyInfo: any = ref({
+  const myinfo: any = ref({
     role: "user",
     content: null,
   });
@@ -43,37 +45,43 @@ export const useUserStore = defineStore("userInfo", () => {
     if (event.shiftKey) {
       //换行
     } else {
-      Dialog_List.value.push(JSON.parse(JSON.stringify(MyInfo.value)));
+      dialog_list.value.push(JSON.parse(JSON.stringify(myinfo.value)));
       // emit("getElementHeightDynamically");
-      IS.value = false;
-      Dialog_Laoding.value = false;
+      dialog_is.value = false;
+      dialog_laoding.value = false;
       // event.preventDefault()
-      MyInfo.value.content = null;
+      myinfo.value.content = null;
       //发送请求
       const res: any = await dialog_http(
-        Chatgpt_Model.value.model,
-        Dialog_List.value,
-        Chatgpt_Model.value.temperature
+        chatgpt_model.value.model,
+        dialog_list.value,
+        chatgpt_model.value.temperature
       );
       if (res === "请求失败") {
-        IS.value = true;
+        dialog_is.value = true;
         return;
       }
       console.log(res);
       if (!res.body) return;
       const reader = res.body.getReader();
       //调用流式输出
-      output(reader, Dialog_List, IS);
+      output(reader, dialog_list, dialog_is,dialog_finish);
     }
   };
+  //停止响应
+  const stopAnswer = () => {
+    dialog_is.value = true;
+    dialog_finish.value = true;
+  };
   return {
-    List,
-    Dialog_List,
-    MyInfo,
+    list,
+    dialog_list,
+    myinfo,
+    dialog_laoding,
+    chatgpt_model,
+    account,
+    dialog_is,
+    stopAnswer,
     handleEnter,
-    Dialog_Laoding,
-    Chatgpt_Model,
-    Account,
-    IS,
   };
 });

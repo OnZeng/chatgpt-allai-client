@@ -19,15 +19,19 @@ export function parsePack(str: any) {
   return result;
 }
 //输出
-export async function output(reader: any, Dialog_List: any, IS: any) {
+export async function output(
+  reader: any,
+  dialog_list: any,
+  dialog_is: any,
+  dialog_finish: any
+) {
   const decoder = new TextDecoder();
   let count = 0;
-  let finish = false;
-  while (!finish) {
+  while (!dialog_finish.value) {
     const { done, value } = await reader.read();
     if (done) {
-      finish = true;
-      IS.value = false
+      dialog_finish.value = true;
+      dialog_is.value = false;
       break;
     }
     // eslint-disable-next-line no-unused-vars
@@ -36,7 +40,7 @@ export async function output(reader: any, Dialog_List: any, IS: any) {
     // console.log(jsonArray)
     // break
     if (count === 1) {
-      Dialog_List.value.push(jsonArray[0].choices[0].delta);
+      dialog_list.value.push(jsonArray[0].choices[0].delta);
     }
     jsonArray.forEach((item: any) => {
       // console.log(item.choices[0].delta.content)
@@ -47,9 +51,9 @@ export async function output(reader: any, Dialog_List: any, IS: any) {
       ) {
         return;
       }
-      let a = item.choices[0].delta.content;
+      const a = item.choices[0].delta.content;
       // console.log(a)
-      Dialog_List.value[Dialog_List.value.length - 1].content += a;
+      dialog_list.value[dialog_list.value.length - 1].content += a;
     });
     // emit("getElementHeightDynamically");
   }

@@ -3,7 +3,7 @@
     <div class="h-box3">
       <div
         class="h-box4"
-        v-for="(item, index) in stores.List"
+        v-for="(item, index) in stores.list"
         v-bind:key="index"
         hoverShadow
       >
