@@ -1,9 +1,7 @@
 import { defineStore } from "pinia";
-import { useRouter } from 'vue-router'
 import { dialog_http } from "@/API/index";
 import { output } from "@/utils/index";
 export const useUserStore = defineStore("userInfo", () => {
-  const router = useRouter()
   // 用户会话
   const token = ref(null)
   // 控制对话是否正在进行中
