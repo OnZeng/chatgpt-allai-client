@@ -1,0 +1,14 @@
+.send-box1 {
+  width: 100%;
+  position: absolute;
+  bottom: 4rem;
+  display: flex;
+  justify-content: center;
+}
+.send-box2 {
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
