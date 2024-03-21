@@ -23,7 +23,8 @@ export async function output(
   reader: any,
   dialog_list: any,
   dialog_is: any,
-  dialog_finish: any
+  dialog_finish: any,
+  emit: any
 ) {
   const decoder = new TextDecoder();
   let count = 0;
@@ -56,5 +57,6 @@ export async function output(
       dialog_list.value[dialog_list.value.length - 1].content += a;
     });
     // emit("getElementHeightDynamically");
+    emit()
   }
 }

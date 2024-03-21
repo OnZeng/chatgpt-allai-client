@@ -39,7 +39,9 @@
   border-radius: 3px;
   box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.12);
   color: white;
-  padding: 0 1em;
+  padding: 1em;
+  white-space: pre-wrap;
+  box-sizing: border-box;
 }
 .d-left-style {
   font-size: 12px;
@@ -52,6 +54,7 @@
   box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.12);
   color: white;
   padding: 0 1em;
+  box-sizing: border-box;
 }
 .d-box3 {
   width: 40px;

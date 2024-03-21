@@ -2,12 +2,14 @@ import { defineStore } from "pinia";
 import { dialog_http } from "@/API/index";
 import { output } from "@/utils/index";
 export const useUserStore = defineStore("userInfo", () => {
-  //控制对话是否正在进行中
-  const dialog_is = ref(true);
-  //中止对话
-  const dialog_finish=ref(false)
+  // 控制对话是否正在进行中
+  const dialog_is = ref(true)
+  // 中止对话
+  const dialog_finish = ref(false);
+  // 元素
+  const el2: any = ref(null)
   //是否显示对话
-  const dialog_laoding = ref(false);
+  const dialog_laoding = ref(false)
   //初始化静态数据
   const list = ref([
     {
@@ -28,7 +30,7 @@ export const useUserStore = defineStore("userInfo", () => {
     Avatar: "https://img.lzxjack.top:99/202203311718517.webp",
     AI_Icon: "_nuxt/assets/images/icon.png",
   });
-  //模型
+  //当前模型
   const chatgpt_model = ref({
     model: "gpt-3.5-turbo",
     temperature: 0.5,
@@ -46,7 +48,8 @@ export const useUserStore = defineStore("userInfo", () => {
       //换行
     } else {
       dialog_list.value.push(JSON.parse(JSON.stringify(myinfo.value)));
-      // emit("getElementHeightDynamically");
+      // 滚动
+      rollToTheBottom()
       dialog_is.value = false;
       dialog_laoding.value = false;
       // event.preventDefault()
@@ -65,7 +68,7 @@ export const useUserStore = defineStore("userInfo", () => {
       if (!res.body) return;
       const reader = res.body.getReader();
       //调用流式输出
-      output(reader, dialog_list, dialog_is,dialog_finish);
+      output(reader, dialog_list, dialog_is, dialog_finish, rollToTheBottom);
     }
   };
   //停止响应
@@ -73,6 +76,11 @@ export const useUserStore = defineStore("userInfo", () => {
     dialog_is.value = true;
     dialog_finish.value = true;
   };
+  // 滚动条自动滚动
+  const rollToTheBottom = async () => {
+    await nextTick()
+    el2.value.scrollTop = el2.value.scrollHeight
+  }
   return {
     list,
     dialog_list,
@@ -81,7 +89,9 @@ export const useUserStore = defineStore("userInfo", () => {
     chatgpt_model,
     account,
     dialog_is,
+    el2,
     stopAnswer,
     handleEnter,
+    rollToTheBottom,
   };
 });

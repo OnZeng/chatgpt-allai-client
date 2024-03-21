@@ -8,7 +8,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import "./assets/app.css";
-import { useUserStore } from "@/stores/index";
-const stores = useUserStore();
+import './assets/app.css'
+import { useUserStore } from '@/stores/index'
+const stores = useUserStore()
 </script>

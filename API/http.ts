@@ -1,4 +1,4 @@
-//使用chatpgt模型
+// 使用chatpgt模型
 export async function dialog_http(model: any, messages: any, temperature: any) {
   return fetch("https://api.openai.com/v1/chat/completions", {
     headers: {
