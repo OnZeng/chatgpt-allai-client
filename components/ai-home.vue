@@ -1,14 +1,14 @@
 <template>
   <div class="h-box1">
     <div class="h-box3">
-      <div v-for="(item, index) in stores.list" :key="index" class="h-box4" @click="go(item)">
+      <n-card v-for="(item, index) in stores.list" :key="index" class="h-box4" @click="go(item)" hoverable>
         <div class="h-box4-title">
           {{ item.role }}
         </div>
         <div class="h-box4-content">
           {{ item.content }}
         </div>
-      </div>
+      </n-card>
     </div>
   </div>
 </template>

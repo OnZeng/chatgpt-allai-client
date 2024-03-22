@@ -3,6 +3,8 @@
     width: 100%;
     display: flex;
     flex-direction: row-reverse;
+    z-index: 100;
+    pointer-events: none; 
 }
 .s-box2{
     margin-top: 20px;
@@ -10,4 +12,5 @@
     padding: 5px;
     /* border: 1.5px solid; */
     cursor: pointer;
+    pointer-events: auto; 
 }

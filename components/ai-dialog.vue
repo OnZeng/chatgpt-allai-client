@@ -7,12 +7,12 @@
           <div class="d-box3">
             <img class="d-img1" :src="item.role == stores.myinfo.role ? stores.account.Avatar : stores.account.AI_Icon">
           </div>
-          <div v-if="item.role == stores.myinfo.role ? false : true"
+          <n-card v-if="item.role == stores.myinfo.role ? false : true"
             :class="[item.role == stores.myinfo.role ? 'd-right-style' : 'd-left-style',]"
-            v-html="mdi.render(item.content)"></div>
-          <div v-else :class="[item.role == stores.myinfo.role ? 'd-right-style' : 'd-left-style',]"
+            v-html="mdi.render(item.content)"></n-card>
+          <n-card v-else :class="[item.role == stores.myinfo.role ? 'd-right-style' : 'd-left-style',]"
             v-text="item.content">
-          </div>
+          </n-card>
         </div>
       </template>
     </div>

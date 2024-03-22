@@ -4,6 +4,8 @@ import { dialog_http } from "@/API/index";
 import { output } from "@/utils/index";
 export const useUserStore = defineStore("userInfo", () => {
   const router = useRouter()
+  // 主题
+  const theme = ref("light")
   // 用户会话
   const token = ref(null)
   // 控制对话是否正在进行中
@@ -108,6 +110,7 @@ export const useUserStore = defineStore("userInfo", () => {
     dialog_is,
     el2,
     token,
+    theme,
     stopAnswer,
     handleEnter,
     rollToTheBottom,

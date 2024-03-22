@@ -8,12 +8,12 @@
 }
 .h-box3 {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: start; */
+  /* align-items: center; */
   gap: 40px;
 }
 .h-box4 {
-  border-radius: 3px;
+  /* border-radius: 3px;
   flex: 1;
   min-height: 105px;
   max-height: 195px;
@@ -22,11 +22,15 @@
   border: 1px solid #dcdcdc;
   cursor: pointer;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; */
+  /* border: 1px solid #dcdcdc; */
+  /* height: 105px; */
+  flex: 1;
+  cursor: pointer;
 }
-.h-box4:hover {
+/* .h-box4:hover {
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.05), 0 4px 5px rgba(0, 0, 0, 8%), 0 2px 4px -1px rgba(0, 0, 0, 12%);
-}
+} */
 .h-box4-title {
   text-align: center;
 }

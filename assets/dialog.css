@@ -30,29 +30,29 @@
   gap: 0 4px;
 }
 .d-right-style {
-  font-size: 12px;
+  /* font-size: 12px; */
   margin-top: 20px;
   min-width: 30%;
-  max-width: 50%;
+  max-width: 400px;
   min-height: 40px;
-  background-color: rgb(40, 112, 234);
-  border-radius: 3px;
-  box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.12);
-  color: white;
+  /* background-color: rgb(40, 112, 234); */
+  /* border-radius: 3px; */
+  /* box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.12); */
+  /* color: white; */
   padding: 1em;
   white-space: pre-wrap;
   box-sizing: border-box;
 }
 .d-left-style {
-  font-size: 12px;
+  /* font-size: 12px; */
   margin-top: 20px;
   min-width: 40%;
   max-width: 80%;
   min-height: 40px;
-  background-color: rgb(40, 112, 234);
-  border-radius: 3px;
-  box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.12);
-  color: white;
+  /* background-color: rgb(40, 112, 234); */
+  /* border-radius: 3px; */
+  /* box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.12); */
+  /* color: white; */
   padding: 0 1em;
   box-sizing: border-box;
 }

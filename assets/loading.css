@@ -15,8 +15,8 @@
 .loading {
   display: block;
   font-size: 0;
-  color: #5fd582;
-  margin: 20px 0;
+  color: #18a058;
+  margin: 40px 0;
 }
 
 .loading.la-dark {
