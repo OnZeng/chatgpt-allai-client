@@ -8,13 +8,13 @@ export default defineNuxtConfig({
     transpile:
       process.env.NODE_ENV === "production"
         ? [
-            "naive-ui",
-            "vueuc",
-            "@css-render/vue3-ssr",
-            "@juggle/resize-observer",
-            "date-fns",
-            "@css-render/plugin-bem",
-          ]
+          "naive-ui",
+          "vueuc",
+          "@css-render/vue3-ssr",
+          "@juggle/resize-observer",
+          "date-fns",
+          "@css-render/plugin-bem",
+        ]
         : ["@juggle/resize-observer"],
   },
   vite: {

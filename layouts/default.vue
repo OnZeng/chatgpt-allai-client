@@ -1,6 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <ai-setting />
+    <slot name="header"></slot>
+    <slot name="main"></slot>
 </template>
 <script setup lang="ts">
 </script>
