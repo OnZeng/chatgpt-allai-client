@@ -8,13 +8,13 @@ export default defineNuxtConfig({
     transpile:
       process.env.NODE_ENV === "production"
         ? [
-          "naive-ui",
-          "vueuc",
-          "@css-render/vue3-ssr",
-          "@juggle/resize-observer",
-          "date-fns",
-          "@css-render/plugin-bem",
-        ]
+            "naive-ui",
+            "vueuc",
+            "@css-render/vue3-ssr",
+            "@juggle/resize-observer",
+            "date-fns",
+            "@css-render/plugin-bem",
+          ]
         : ["@juggle/resize-observer"],
   },
   vite: {
@@ -24,5 +24,10 @@ export default defineNuxtConfig({
         resolvers: [NaiveUiResolver()], // Automatically register all components in the `components` directory
       }),
     ],
+  },
+  runtimeConfig: {
+    public: {
+      api_base_url: "http://127.0.0.1:8000",
+    },
   },
 });
