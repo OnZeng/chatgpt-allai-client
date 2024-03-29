@@ -2,7 +2,7 @@
   <div class="d-box1">
     <!-- 标记 -->
     <div class="d-box2" id="el">
-      <template v-for="item in stores.dialog_list" :key="item.id">
+      <template v-for="item in stores.dialog_list" :key="item">
         <div :class="[item.role == stores.myinfo.role ? 'd-right' : 'd-left']">
           <div class="d-box3">
             <img class="d-img1" :src="item.role == stores.myinfo.role ? stores.account.Avatar : stores.account.AI_Icon">
@@ -57,3 +57,23 @@ onMounted(() => {
   stores.el2 = divElement
 })
 </script>
+<style scoped>
+:deep() .pre-code-header {
+  width: 100%;
+  position: relative;
+  background-color: rgb(52, 53, 65);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+:deep() .code-block-header__copy {
+  position: absolute;
+  cursor: pointer;
+  right: 4px;
+}
+
+:deep() .code-block-header__lang {
+  margin-left: 4px;
+}
+</style>

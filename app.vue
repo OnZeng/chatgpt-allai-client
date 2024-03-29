@@ -22,14 +22,19 @@
 <script setup lang="ts">
 import './assets/app.css'
 import { darkTheme } from 'naive-ui'
-import { useUserStore } from './stores/index'
-import { get_local_theme } from './utils/index'
+import { get_local_theme, get_local_token, get_local_userinfo } from './utils/common/index'
+
 const stores = useUserStore()
+const { public: { api_base_url } } = useRuntimeConfig()
 const is = ref(false)
 
-onMounted(() => {
+onMounted(async () => {
   is.value = true
   //读取本地主题
   stores.theme = get_local_theme()
+  stores.token = get_local_token()
+  stores.userinfo = get_local_userinfo()
+  if (!stores.token) return
+  stores.userinfo = await getuserinfo(api_base_url, stores.token)
 })
 </script>

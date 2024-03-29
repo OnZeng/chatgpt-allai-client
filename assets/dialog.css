@@ -65,20 +65,3 @@
   height: 40px;
   border-radius: 3px;
 }
-
-
-:deep() .pre-code-header {
-  position: relative;
-  background-color: rgb(52, 53, 65);
-  color: white;
-}
-
-:deep() .code-block-header__copy {
-  position: absolute;
-  cursor: pointer;
-  right: 4px;
-}
-
-:deep() .code-block-header__lang {
-  margin-left: 4px;
-}

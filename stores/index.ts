@@ -1,21 +1,35 @@
 import { defineStore } from "pinia";
-import { useRouter } from 'vue-router'
-import { dialog_http } from "@/API/index";
-import { output } from "@/utils/index";
+import { useRouter } from "vue-router";
+import { output, output2 } from "~/utils/common/index";
+import dialog_http from "~/utils/dialog_http";
+
 export const useUserStore = defineStore("userInfo", () => {
-  const router = useRouter()
+  const {
+    public: { api_base_url },
+  } = useRuntimeConfig();
+  const router = useRouter();
   // 主题
-  const theme = ref("light")
+  const theme = ref("light");
   // 用户会话
-  const token = ref(null)
+  const token: any = ref(null);
+  // 用户信息
+  const userinfo: any = ref({
+    nickName: "",
+    role: "",
+    avatar: "",
+    email: "",
+    createdAt: "2022-03-31 17:18:51",
+    useCount: 0,
+    tokens: 0,
+  });
   // 控制对话是否正在进行中
-  const dialog_is = ref(true)
+  const dialog_is = ref(true);
   // 中止对话
   const dialog_finish = ref(false);
   // 元素
-  const el2: any = ref(null)
+  const el2: any = ref(null);
   // 是否显示对话
-  const dialog_laoding = ref(false)
+  const dialog_laoding = ref(false);
   // 初始化静态数据
   const list = ref([
     {
@@ -31,7 +45,7 @@ export const useUserStore = defineStore("userInfo", () => {
       content: "以海盗的口吻写一首关于外太空鳄鱼的俳句",
     },
   ]);
-  // 账号信息
+  // 对话页面信息
   const account = ref({
     Avatar: "https://img.lzxjack.top:99/202203311718517.webp",
     AI_Icon: "_nuxt/assets/images/icon.png",
@@ -51,33 +65,36 @@ export const useUserStore = defineStore("userInfo", () => {
   // 处理回车发送消息
   const handleEnter = async (event: any) => {
     if (!checkLogin()) {
-      return
+      return;
     }
     if (event.shiftKey) {
       //换行
     } else {
       dialog_list.value.push(JSON.parse(JSON.stringify(myinfo.value)));
       // 滚动
-      rollToTheBottom()
+      rollToTheBottom();
       dialog_is.value = false;
       dialog_laoding.value = false;
       // event.preventDefault()
       myinfo.value.content = null;
       //发送请求
       const res: any = await dialog_http(
+        api_base_url,
         chatgpt_model.value.model,
         dialog_list.value,
-        chatgpt_model.value.temperature
+        chatgpt_model.value.temperature,
+        token.value
       );
       if (res === "请求失败") {
         dialog_is.value = true;
         return;
       }
-      console.log(res);
+      // console.log(res.headers.get("Content-Type"));
       if (!res.body) return;
       const reader = res.body.getReader();
-      //调用流式输出
-      output(reader, dialog_list, dialog_is, dialog_finish, rollToTheBottom);
+      //调用流式输出2
+      output2(reader, dialog_list, dialog_is, dialog_finish, rollToTheBottom);
+      userinfo.value = await getuserinfo(api_base_url, token.value);
     }
   };
   // 停止响应
@@ -87,17 +104,17 @@ export const useUserStore = defineStore("userInfo", () => {
   };
   // 滚动条自动滚动
   const rollToTheBottom = async () => {
-    await nextTick()
-    el2.value.scrollTop = el2.value.scrollHeight
-  }
+    await nextTick();
+    el2.value.scrollTop = el2.value.scrollHeight;
+  };
   // 登录检测
   const checkLogin = () => {
     if (!token.value) {
       // window.location.href = "/login";
       router.push("/login");
-      return false
+      return false;
     } else {
-      return true
+      return true;
     }
   };
   return {
@@ -111,9 +128,10 @@ export const useUserStore = defineStore("userInfo", () => {
     el2,
     token,
     theme,
+    userinfo,
     stopAnswer,
     handleEnter,
     rollToTheBottom,
-    checkLogin
+    checkLogin,
   };
 });
