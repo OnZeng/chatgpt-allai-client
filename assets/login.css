@@ -1,18 +1,32 @@
-.login-box1{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.login-box1 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.login-box2{
-    max-width: 1024px;
-    height: 550px;
+.login-box2 {
+  max-width: 1024px;
+  height: 550px;
 }
-.login-box3{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    gap: 0 10px;
+.login-box3 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 0 10px;
+}
+
+@media screen and (max-width: 1072px) {
+  .login-box2 {
+    width: 95%;
+  }
+}
+@media screen and (max-width: 600px) {
+  .login-notice {
+    display: none;
+  }
+  .login-notice2 {
+    display: block;
+  }
 }

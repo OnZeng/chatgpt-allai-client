@@ -4,7 +4,7 @@
   height: 80px;
   /* border: 1px solid; */
   margin: 0 auto;
-  bottom: 64px;
+  bottom: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -44,5 +44,16 @@
   }
   100% {
     transform: scale(0);
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .sendLoading-box1 {
+    bottom: 25px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .sendLoading-box1 {
+    bottom: 23px;
   }
 }

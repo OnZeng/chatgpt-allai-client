@@ -1,7 +1,7 @@
 <template>
   <div class="s-box1">
     <div class="s-box2" @click="open_modal">
-      <n-icon size="32" :component="SettingsOutline" />
+      <n-icon size="30" :component="SettingsOutline" />
     </div>
   </div>
   <n-modal :show="show" class="custom-card" preset="card" style="width: 600px;" title="设置" size="huge" closable

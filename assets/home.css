@@ -34,3 +34,45 @@
 .h-box4-title {
   text-align: center;
 }
+@media screen and (max-width: 1100px) {
+  .h-box3 {
+    /* flex-direction: column; */
+    gap: 10px;
+  }
+  .h-box4 {
+    border-radius: 3px;
+    flex: 1;
+    min-height: 105px;
+    max-height: 195px;
+    box-sizing: border-box;
+    /* padding: 20px; */
+    border: 1px solid #dcdcdc;
+    cursor: pointer;
+    display: flex;
+  }
+}
+@media screen and (max-width: 1050px) {
+  .h-box3 {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .h-box4 {
+    border-radius: 3px;
+    flex: 1;
+    min-height: 105px;
+    max-height: 195px;
+    box-sizing: border-box;
+    padding: 20px;
+    border: 1px solid #dcdcdc;
+    cursor: pointer;
+    display: flex;
+  }
+}
+@media screen and (max-width: 450px) {
+  .h-box3 {
+    width: 95%;
+  }
+  .h-box4 {
+    padding: 0;
+  }
+}

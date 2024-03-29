@@ -48,7 +48,7 @@ export const useUserStore = defineStore("userInfo", () => {
   // 对话页面信息
   const account = ref({
     Avatar: "https://img.lzxjack.top:99/202203311718517.webp",
-    AI_Icon: "_nuxt/assets/images/icon.png",
+    AI_Icon: "/assets/images/icon.png",
   });
   // 当前模型
   const chatgpt_model = ref({

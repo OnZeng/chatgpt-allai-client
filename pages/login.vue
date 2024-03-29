@@ -3,7 +3,7 @@
     <div class="login-box1">
         <n-card class="login-box2">
             <div class="login-box3">
-                <n-card title="更新日志">
+                <n-card title="更新日志" class="login-notice">
                     <n-scrollbar style="max-height: 400px">
                         我们在田野上面找猪<br>
                         想象中已找到了三只<br>
@@ -76,6 +76,37 @@
                                 注册
                             </n-button>
                         </n-tab-pane>
+                        <n-tab-pane name="notice" tab="关于" v-if="is_notice < 601">
+                            <n-scrollbar style="max-height: 400px">
+                                我们在田野上面找猪<br>
+                                想象中已找到了三只<br>
+                                小鸟在白云上面追逐<br>
+                                它们在树底下跳舞<br>
+                                啦啦啦啦啦啦啦啦咧<br>
+                                啦啦啦啦咧<br>
+                                我们在想象中度过了许多年<br>
+                                想象中我们是如此的疯狂<br>
+                                我们在城市里面找猪<br>
+                                想象中已找到了几百万只<br>
+                                小鸟在公园里面唱歌<br>
+                                它们独自在想象里跳舞<br>
+                                啦啦啦啦啦啦啦啦咧<br>
+                                啦啦啦啦咧<br>
+                                我们在想象中度过了许多年<br>
+                                许多年之后我们又开始想象<br>
+                                啦啦啦啦啦啦啦啦咧
+                                想象中我们是如此的疯狂<br>
+                                我们在城市里面找猪<br>
+                                想象中已找到了几百万只<br>
+                                小鸟在公园里面唱歌<br>
+                                它们独自在想象里跳舞<br>
+                                啦啦啦啦啦啦啦啦咧<br>
+                                啦啦啦啦咧<br>
+                                我们在想象中度过了许多年<br>
+                                许多年之后我们又开始想象<br>
+                                啦啦啦啦啦啦啦啦咧
+                            </n-scrollbar>
+                        </n-tab-pane>
                     </n-tabs>
                 </n-card>
             </div>
@@ -92,6 +123,7 @@ const stores = useUserStore()
 const message = useMessage()
 const { public: { api_base_url } } = useRuntimeConfig()
 
+const is_notice = ref(601)
 const codeTimeInterval: any = ref(0)
 const codeTimeText = ref('发送验证码')
 const codeing = ref(false)
@@ -183,10 +215,17 @@ const onSendCode = async (event: any) => {
         message.error(res.message)
     }
 }
-
 onMounted(() => {
+    window.onresize = function () {
+        // console.log("宽度", document.documentElement.clientWidth);
+        is_notice.value = document.documentElement.clientWidth
+    };
     if (stores.token) {
         router.push('/')
     }
+})
+onUnmounted(() => {
+    window.removeEventListener('resize', () => {
+    })
 })
 </script>
