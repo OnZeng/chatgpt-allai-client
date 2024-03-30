@@ -6,8 +6,11 @@
                 <n-card title="更新日志" class="login-notice">
                     <n-scrollbar style="max-height: 400px">
                         <p>持续更新中</p>
-                        开源地址：<a href="https://gitee.com/zmzm666/chatgpt-allai-client" target="_blank">gitee</a><br />
-                        <a>交流群：575160797</a>
+                        开源地址：<a href="https://gitee.com/zmzm666/chatgpt-allai-client" target="_blank">gitee</a>&nbsp;
+                        <a href="https://github.com/OnZeng/chatgpt-allai-client" target="_blank">github</a>
+                        <br />
+                        <p>交流群</p>
+                        <img style="width: 100px;height: 100px;" src="../images/wx.png">
                     </n-scrollbar>
                 </n-card>
                 <n-card>
@@ -56,8 +59,11 @@
                             <n-scrollbar style="max-height: 400px">
                                 <p>持续更新中</p>
                                 开源地址：<a href="https://gitee.com/zmzm666/chatgpt-allai-client"
-                                    target="_blank">gitee</a><br />
-                                <a>交流群：575160797</a>
+                                    target="_blank">gitee</a>&nbsp;
+                                <a href="https://github.com/OnZeng/chatgpt-allai-client" target="_blank">github</a>
+                                <br />
+                                <p>交流群</p>
+                                <img style="width: 100px;height: 100px;" src="../images/wx.png">
                             </n-scrollbar>
                         </n-tab-pane>
                     </n-tabs>
