@@ -8,6 +8,8 @@
 前端`Nuxt3+Naive-ui`
 后端`Nest.js+Mysql`
 
+接口文档(https://apifox.com/apidoc/shared-f06bc49e-3ecb-4971-a254-d46446faaa5a)
+
 ## 学习交流
 
 ### 交流 Q 群：[575160797]
