@@ -6,10 +6,10 @@
 后续会接入世界上所有 ai 接口，国内支付宝和微信支付,国外 PayPal，采用 javascript 编写全栈项目
 此项目没有过度封装，小白都能看懂，主打简洁，可不断完善！
 
-前端`Nuxt3+Naive-ui`  
-后端`Nest+Mysql` 
-gitee地址(https://gitee.com/zmzm666/chatgpt-allai-client) 
-github地址(https://github.com/OnZeng/chatgpt-allai-client) 
+前端`Nuxt3+Naive-ui`<br /> 
+后端`Nest+Mysql` <br />
+gitee地址(https://gitee.com/zmzm666/chatgpt-allai-client) <br />
+github地址(https://github.com/OnZeng/chatgpt-allai-client) <br />
 接口文档(https://apifox.com/apidoc/shared-f06bc49e-3ecb-4971-a254-d46446faaa5a)
 
 ### 微信交流群
