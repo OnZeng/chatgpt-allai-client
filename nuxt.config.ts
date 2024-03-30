@@ -3,8 +3,7 @@ import Components from "unplugin-vue-components/vite";
 import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
 export default defineNuxtConfig({
   devServer: {
-    host: "0.0.0.0",
-    port: 3000,
+    host: "127.0.0.1",
   },
   devtools: { enabled: false },
   modules: ["@pinia/nuxt"],

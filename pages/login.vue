@@ -5,33 +5,9 @@
             <div class="login-box3">
                 <n-card title="更新日志" class="login-notice">
                     <n-scrollbar style="max-height: 400px">
-                        我们在田野上面找猪<br>
-                        想象中已找到了三只<br>
-                        小鸟在白云上面追逐<br>
-                        它们在树底下跳舞<br>
-                        啦啦啦啦啦啦啦啦咧<br>
-                        啦啦啦啦咧<br>
-                        我们在想象中度过了许多年<br>
-                        想象中我们是如此的疯狂<br>
-                        我们在城市里面找猪<br>
-                        想象中已找到了几百万只<br>
-                        小鸟在公园里面唱歌<br>
-                        它们独自在想象里跳舞<br>
-                        啦啦啦啦啦啦啦啦咧<br>
-                        啦啦啦啦咧<br>
-                        我们在想象中度过了许多年<br>
-                        许多年之后我们又开始想象<br>
-                        啦啦啦啦啦啦啦啦咧
-                        想象中我们是如此的疯狂<br>
-                        我们在城市里面找猪<br>
-                        想象中已找到了几百万只<br>
-                        小鸟在公园里面唱歌<br>
-                        它们独自在想象里跳舞<br>
-                        啦啦啦啦啦啦啦啦咧<br>
-                        啦啦啦啦咧<br>
-                        我们在想象中度过了许多年<br>
-                        许多年之后我们又开始想象<br>
-                        啦啦啦啦啦啦啦啦咧
+                        <p>持续更新中</p>
+                        开源地址：<a href="https://gitee.com/zmzm666/chatgpt-allai-client" target="_blank">gitee</a><br />
+                        <a>交流群：575160797</a>
                     </n-scrollbar>
                 </n-card>
                 <n-card>
@@ -78,33 +54,10 @@
                         </n-tab-pane>
                         <n-tab-pane name="notice" tab="关于" v-if="is_notice < 601">
                             <n-scrollbar style="max-height: 400px">
-                                我们在田野上面找猪<br>
-                                想象中已找到了三只<br>
-                                小鸟在白云上面追逐<br>
-                                它们在树底下跳舞<br>
-                                啦啦啦啦啦啦啦啦咧<br>
-                                啦啦啦啦咧<br>
-                                我们在想象中度过了许多年<br>
-                                想象中我们是如此的疯狂<br>
-                                我们在城市里面找猪<br>
-                                想象中已找到了几百万只<br>
-                                小鸟在公园里面唱歌<br>
-                                它们独自在想象里跳舞<br>
-                                啦啦啦啦啦啦啦啦咧<br>
-                                啦啦啦啦咧<br>
-                                我们在想象中度过了许多年<br>
-                                许多年之后我们又开始想象<br>
-                                啦啦啦啦啦啦啦啦咧
-                                想象中我们是如此的疯狂<br>
-                                我们在城市里面找猪<br>
-                                想象中已找到了几百万只<br>
-                                小鸟在公园里面唱歌<br>
-                                它们独自在想象里跳舞<br>
-                                啦啦啦啦啦啦啦啦咧<br>
-                                啦啦啦啦咧<br>
-                                我们在想象中度过了许多年<br>
-                                许多年之后我们又开始想象<br>
-                                啦啦啦啦啦啦啦啦咧
+                                <p>持续更新中</p>
+                                开源地址：<a href="https://gitee.com/zmzm666/chatgpt-allai-client"
+                                    target="_blank">gitee</a><br />
+                                <a>交流群：575160797</a>
                             </n-scrollbar>
                         </n-tab-pane>
                     </n-tabs>
