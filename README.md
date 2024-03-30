@@ -6,13 +6,13 @@
 后续会接入世界上所有 ai 接口，国内支付宝和微信支付,国外 PayPal，采用 javascript 编写全栈项目
 此项目没有过度封装，小白都能看懂，主打简洁，可不断完善！
 前端`Nuxt3+Naive-ui`
-后端`Nest.js+Mysql`
+后端`Nest+Mysql`
 
 接口文档(https://apifox.com/apidoc/shared-f06bc49e-3ecb-4971-a254-d46446faaa5a)
 
-## 学习交流
+### 微信交流群
 
-### 交流 Q 群：[575160797]
+<img src="./images/wx.png" width="200">
 
 ## 项目效果
 
