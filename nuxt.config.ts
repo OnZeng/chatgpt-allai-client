@@ -6,7 +6,7 @@ export default defineNuxtConfig({
     host: "0.0.0.0",
     port: 3000,
   },
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   modules: ["@pinia/nuxt"],
   build: {
     transpile:
@@ -31,7 +31,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      api_base_url: "http://api.startea.top",
+      api_base_url: "http://127.0.0.1:8000",
     },
   },
 });
