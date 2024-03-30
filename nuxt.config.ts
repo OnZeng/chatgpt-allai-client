@@ -4,6 +4,7 @@ import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
 export default defineNuxtConfig({
   devServer: {
     host: "127.0.0.1",
+    port: Number(process.env.PORT),
   },
   devtools: { enabled: false },
   modules: ["@pinia/nuxt"],
@@ -30,7 +31,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      api_base_url: "http://127.0.0.1:8000",
+      api_base_url: process.env.VITE_BASE_URL,
     },
   },
 });
