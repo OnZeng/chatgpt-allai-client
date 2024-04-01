@@ -70,6 +70,8 @@ export const useUserStore = defineStore("userInfo", () => {
     if (event.shiftKey) {
       //换行
     } else {
+      if (myinfo.value.content === null) return;
+      if (myinfo.value.content.trim() === "") return;
       dialog_finish.value = false;
       dialog_list.value.push(JSON.parse(JSON.stringify(myinfo.value)));
       // 滚动
