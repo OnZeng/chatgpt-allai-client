@@ -70,6 +70,7 @@ export const useUserStore = defineStore("userInfo", () => {
     if (event.shiftKey) {
       //换行
     } else {
+      dialog_finish.value = false;
       dialog_list.value.push(JSON.parse(JSON.stringify(myinfo.value)));
       // 滚动
       rollToTheBottom();

@@ -85,7 +85,7 @@ export async function output2(
     const { done, value } = await reader.read();
     // console.log(value);
     if (done) {
-      dialog_finish.value = false;
+      dialog_finish.value = true;
       dialog_is.value = true;
       break;
     }
