@@ -40,5 +40,21 @@ onMounted(async () => {
   stores.userinfo = get_local_userinfo()
   if (!stores.token) return
   stores.userinfo = await getuserinfo(api_base_url, stores.token)
+  const list = await getDialogList(api_base_url, stores.token)
+  stores.dialog_lists = list.contents
+  stores.dialog_titles = list.titles
+  if (stores.dialog_lists.length > 0) {
+    stores.dialog_index = stores.dialog_titles[stores.dialog_titles.length - 1]['id']
+    console.log(stores.dialog_index)
+    stores.dialog_lists.map((item) => {
+      if (item['d_id'] === stores.dialog_index) {
+        let temp = {
+          role: item['role'],
+          content: item['content']
+        }
+        stores.dialog_list.push(temp)
+      }
+    });
+  }
 })
 </script>

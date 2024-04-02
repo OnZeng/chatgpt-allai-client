@@ -55,6 +55,12 @@ export const useUserStore = defineStore("userInfo", () => {
     model: "gpt-3.5-turbo",
     temperature: 0.5,
   });
+  //我的全部对话标题
+  const dialog_titles = ref([]);
+  //我的全部对话记录
+  const dialog_lists = ref([]);
+  //当前对话索引
+  const dialog_index = ref("");
   // 当前对话记录
   const dialog_list: any = ref([]);
   // 当前角色
@@ -86,7 +92,8 @@ export const useUserStore = defineStore("userInfo", () => {
         chatgpt_model.value.model,
         dialog_list.value,
         chatgpt_model.value.temperature,
-        token.value
+        token.value,
+        dialog_index.value
       );
       if (res === "请求失败") {
         dialog_is.value = true;
@@ -132,6 +139,9 @@ export const useUserStore = defineStore("userInfo", () => {
     token,
     theme,
     userinfo,
+    dialog_titles,
+    dialog_lists,
+    dialog_index,
     stopAnswer,
     handleEnter,
     rollToTheBottom,

@@ -2,6 +2,7 @@
 import Components from "unplugin-vue-components/vite";
 import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
 export default defineNuxtConfig({
+  serverDir: "dist/server",
   devServer: {
     host: "127.0.0.1",
     port: Number(process.env.PORT),
@@ -25,7 +26,7 @@ export default defineNuxtConfig({
     plugins: [
       Components({
         dts: true,
-        resolvers: [NaiveUiResolver()], // Automatically register all components in the `components` directory
+        resolvers: [NaiveUiResolver()],
       }),
     ],
   },

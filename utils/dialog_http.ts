@@ -4,7 +4,8 @@ export default async function dialog_http(
   model: any,
   messages: any,
   temperature: any,
-  token: any
+  token: any,
+  id: any
 ) {
   return await fetch(url + "/api/dialog/v1", {
     headers: {
@@ -17,6 +18,7 @@ export default async function dialog_http(
       messages,
       temperature,
       stream: true,
+      id:id,
     }),
   });
 }
