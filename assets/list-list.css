@@ -1,0 +1,12 @@
+.list-list-box2 {
+  width: 120px;
+  height: 30px;
+  text-overflow: ellipsis;
+  white-space: nowrap; 
+  overflow: hidden;
+  line-height: 30px;
+}
+.list-list-box3 {
+  display: flex;
+  align-items: center;
+}

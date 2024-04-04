@@ -28,33 +28,46 @@ import { get_local_theme, get_local_token, get_local_userinfo } from './utils/co
 const stores = useUserStore()
 const { public: { api_base_url } } = useRuntimeConfig()
 const is = ref(false)
-const time_r: any = ref(null);
 
 
 
 onMounted(async () => {
   is.value = true
-  //读取本地主题
+  //读取本地数据
   stores.theme = get_local_theme()
   stores.token = get_local_token()
   stores.userinfo = get_local_userinfo()
   if (!stores.token) return
-  stores.userinfo = await getuserinfo(api_base_url, stores.token)
-  const list = await getDialogList(api_base_url, stores.token)
-  stores.dialog_lists = list.contents
-  stores.dialog_titles = list.titles
-  if (stores.dialog_lists.length > 0) {
-    stores.dialog_index = stores.dialog_titles[stores.dialog_titles.length - 1]['id']
-    console.log(stores.dialog_index)
-    stores.dialog_lists.map((item) => {
-      if (item['d_id'] === stores.dialog_index) {
+  // 获取最新数据
+  const result: any = await getuserinfo(api_base_url, stores.token)
+  if (result.type === "error") {
+    window.localStorage.removeItem("userinfo");
+    window.localStorage.removeItem("token");
+    return
+  }
+  stores.userinfo = result
+  window.localStorage.setItem('userinfo', JSON.stringify(stores.userinfo))
+  const result2 = await getDialogList(api_base_url, stores.token)
+  stores.dialog_contents = result2.contents
+  stores.dialog_titles = result2.titles
+  // 页面初始化
+  if (stores.dialog_contents.length > 0) {
+    if (stores.userinfo.dialog_id === 1000) {
+      stores.dialog_index = stores.dialog_titles[stores.dialog_titles.length - 1].id
+    } else {
+      stores.dialog_index = stores.userinfo.dialog_id
+    }
+    // console.log(stores.dialog_index)
+    stores.dialog_contents.map((item: any) => {
+      if (item.d_id === stores.dialog_index) {
         let temp = {
-          role: item['role'],
-          content: item['content']
+          role: item.role,
+          content: item.content
         }
         stores.dialog_list.push(temp)
       }
     });
+    stores.rollToTheBottom()
   }
 })
 </script>

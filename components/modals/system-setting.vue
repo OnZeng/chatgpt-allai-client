@@ -20,13 +20,13 @@
                 </n-flex>
             </n-card>
         </n-gi>
-        <n-gi span="24">
-            <n-card title="版本号">
+        <!-- <n-gi span="24">
+            <n-card title="错误修复">
                 <n-flex>
                     <n-text>1.0.0</n-text>
                 </n-flex>
             </n-card>
-        </n-gi>
+        </n-gi> -->
     </n-grid>
 </template>
 <script setup lang="ts">

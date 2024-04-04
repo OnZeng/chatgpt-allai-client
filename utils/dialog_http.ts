@@ -1,10 +1,10 @@
 // 使用chatpgt模型
 export default async function dialog_http(
   url: string,
-  model: any,
+  model: string,
   messages: any,
-  temperature: any,
-  token: any,
+  temperature: number,
+  token: string,
   id: any
 ) {
   return await fetch(url + "/api/dialog/v1", {

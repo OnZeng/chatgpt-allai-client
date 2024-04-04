@@ -46,6 +46,7 @@ const router = useRouter()
 // 退出登录
 const logout = () => {
     window.localStorage.removeItem('token')
+    window.localStorage.removeItem('userinfo')
     window.location.href = '/'
 }
 </script>

@@ -5,7 +5,9 @@
             <div class="login-box3">
                 <n-card title="更新日志" class="login-notice">
                     <n-scrollbar style="max-height: 400px">
-                        <p>持续更新中</p>
+                        <p>2024-4-4</p>
+                        <p>1.支持多会话</p>
+                        <p>2.修复部分bug</p>
                         开源地址：<a href="https://gitee.com/zmzm666/chatgpt-allai-client" target="_blank">gitee</a>&nbsp;
                         <a href="https://github.com/OnZeng/chatgpt-allai-client" target="_blank">github</a>
                         <br />
@@ -57,7 +59,9 @@
                         </n-tab-pane>
                         <n-tab-pane name="notice" tab="关于" v-if="is_notice < 601">
                             <n-scrollbar style="max-height: 400px">
-                                <p>持续更新中</p>
+                                <p>2024-4-4</p>
+                                <p>1.支持多会话</p>
+                                <p>2.修复部分bug</p>
                                 开源地址：<a href="https://gitee.com/zmzm666/chatgpt-allai-client"
                                     target="_blank">gitee</a>&nbsp;
                                 <a href="https://github.com/OnZeng/chatgpt-allai-client" target="_blank">github</a>
@@ -106,17 +110,20 @@ const onSubmit = async () => {
         return
     }
     logining.value = true
-    const res = await login(api_base_url, loginForm.value)
+    const result = await login(api_base_url, loginForm.value)
     logining.value = false
-    if (res.type === 'success') {
-        message.success(res.message)
-        stores.token = res.token
-        stores.userinfo = res.data
-        window.localStorage.setItem('token', res.token)
-        window.localStorage.setItem('userinfo', JSON.stringify(res.data))
+    if (result.type === 'success') {
+        const result2 = await getDialogList(api_base_url, stores.token);
+        stores.dialog_contents = result2.contents;
+        stores.dialog_titles.value = result2.titles;
+        message.success(result.message)
+        stores.token = result.token
+        stores.userinfo = result.data
+        window.localStorage.setItem('token', result.token)
+        window.localStorage.setItem('userinfo', JSON.stringify(result.data))
         router.push('/')
     } else {
-        message.error(res.message)
+        message.error(result.message)
     }
 
 }
@@ -155,7 +162,7 @@ const onSendCode = async (event: any) => {
         return
     }
     codeing.value = true
-    const res = await sendCode(api_base_url, registerForm.value.email)
+    const res = await sendcode(api_base_url, registerForm.value.email)
     codeing.value = false
     if (res.type === 'success') {
         message.success(res.message)

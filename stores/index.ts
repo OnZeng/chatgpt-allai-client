@@ -56,11 +56,11 @@ export const useUserStore = defineStore("userInfo", () => {
     temperature: 0.5,
   });
   //我的全部对话标题
-  const dialog_titles = ref([]);
+  const dialog_titles: any = ref([]);
   //我的全部对话记录
-  const dialog_lists = ref([]);
+  const dialog_contents: any = ref([]);
   //当前对话索引
-  const dialog_index = ref("");
+  const dialog_index = ref(1000);
   // 当前对话记录
   const dialog_list: any = ref([]);
   // 当前角色
@@ -86,8 +86,8 @@ export const useUserStore = defineStore("userInfo", () => {
       dialog_laoding.value = false;
       // event.preventDefault()
       myinfo.value.content = null;
-      //发送请求
-      const res: any = await dialog_http(
+      // 发送请求1
+      const result: any = await dialog_http(
         api_base_url,
         chatgpt_model.value.model,
         dialog_list.value,
@@ -95,16 +95,32 @@ export const useUserStore = defineStore("userInfo", () => {
         token.value,
         dialog_index.value
       );
-      if (res === "请求失败") {
+      if (result === "请求失败") {
         dialog_is.value = true;
         return;
       }
       // console.log(res.headers.get("Content-Type"));
-      if (!res.body) return;
-      const reader = res.body.getReader();
-      //调用流式输出2
+      if (!result.body) return;
+      const reader = result.body.getReader();
+      // 调用流式输出
       output2(reader, dialog_list, dialog_is, dialog_finish, rollToTheBottom);
-      userinfo.value = await getuserinfo(api_base_url, token.value);
+      // 发送请求2
+      const result2: any = await getuserinfo(api_base_url, token.value);
+      if (result2.type === "error") {
+        window.localStorage.removeItem("userinfo");
+        window.localStorage.removeItem("token");
+      }
+      userinfo.value = result2;
+      window.localStorage.setItem("userinfo", JSON.stringify(result.data));
+      dialog_index.value == userinfo.value.dialog_id;
+      // 发送请求3
+      const result3 = await getDialogList(api_base_url, token.value);
+      dialog_contents.value = result3.contents;
+      dialog_titles.value = result3.titles;
+      // 新会话?
+      if (dialog_index.value === 1000) {
+        dialog_index.value = result3.titles[result3.titles.length - 1].id;
+      }
     }
   };
   // 停止响应
@@ -127,6 +143,26 @@ export const useUserStore = defineStore("userInfo", () => {
       return true;
     }
   };
+  // 新会话
+  const newDialog = async () => {
+    dialog_list.value.length = 0;
+    dialog_index.value = 1000;
+  };
+  // 切换会话
+  const changeDialog = async (item: any, index: number) => {
+    dialog_list.value.length = 0;
+    dialog_index.value = item.id;
+    dialog_contents.value.map((item: any) => {
+      if (item.d_id === dialog_index.value) {
+        let temp = {
+          role: item.role,
+          content: item.content,
+        };
+        dialog_list.value.push(temp);
+      }
+    });
+    rollToTheBottom();
+  };
   return {
     list,
     dialog_list,
@@ -140,11 +176,13 @@ export const useUserStore = defineStore("userInfo", () => {
     theme,
     userinfo,
     dialog_titles,
-    dialog_lists,
+    dialog_contents,
     dialog_index,
     stopAnswer,
     handleEnter,
     rollToTheBottom,
     checkLogin,
+    newDialog,
+    changeDialog,
   };
 });
