@@ -10,7 +10,7 @@
 后端`Nest+Mysql` <br />
 gitee地址(https://gitee.com/zmzm666/chatgpt-allai-client) <br />
 github地址(https://github.com/OnZeng/chatgpt-allai-client) <br />
-预览地址：[117.50.193.71](http://117.50.193.71) <br />
+预览地址：[193.134.209.123](http://193.134.209.123) <br />
 接口文档(https://apifox.com/apidoc/shared-f06bc49e-3ecb-4971-a254-d46446faaa5a)
 
 ### 微信交流群

@@ -113,14 +113,14 @@ const onSubmit = async () => {
     const result = await login(api_base_url, loginForm.value)
     logining.value = false
     if (result.type === 'success') {
-        const result2 = await getDialogList(api_base_url, stores.token);
-        stores.dialog_contents = result2.contents;
-        stores.dialog_titles.value = result2.titles;
-        message.success(result.message)
         stores.token = result.token
         stores.userinfo = result.data
         window.localStorage.setItem('token', result.token)
         window.localStorage.setItem('userinfo', JSON.stringify(result.data))
+        const result2 = await getDialogList(api_base_url, stores.token);
+        stores.dialog_contents = result2.contents;
+        stores.dialog_titles.value = result2.titles;
+        message.success(result.message)
         router.push('/')
     } else {
         message.error(result.message)
