@@ -50,34 +50,37 @@ const renderIcon = (icon: Component) => {
 const options: any = [
     {
         label: '重命名',
-        key: '1',
+        key: 1,
         icon: renderIcon(Pencil)
     },
     {
         label: '删除',
-        key: '2',
+        key: 2,
         icon: renderIcon(TrashOutline)
     }]
 const handleSelect = async (key: number, options: any, item: any, index: any) => {
-    dialog.warning({
-        title: '警告',
-        content: '你确定要删除？',
-        positiveText: '确定',
-        negativeText: '取消',
-        onPositiveClick: async () => {
-            // console.log(key, options, item)
-            const result = await deleteDialogTitle(api_base_url, item.id, stores.token)
-            if (result.type === 'success') {
-                stores.dialog_list.length = 0
-                stores.dialog_titles.splice(index, 1)
-                message.success('删除成功')
-                return
+    if(key === 1) message.info('正在开发中...')
+    if (key === 2) {
+        dialog.warning({
+            title: '警告',
+            content: '你确定要删除？',
+            positiveText: '确定',
+            negativeText: '取消',
+            onPositiveClick: async () => {
+                // console.log(key, options, item)
+                const result = await deleteDialogTitle(api_base_url, item.id, stores.token)
+                if (result.type === 'success') {
+                    stores.dialog_list.length = 0
+                    stores.dialog_titles.splice(index, 1)
+                    message.success('删除成功')
+                    return
+                }
+                message.success('删除失败')
+            },
+            onNegativeClick: () => {
+                // message.error('不确定')
             }
-            message.success('删除失败')
-        },
-        onNegativeClick: () => {
-            // message.error('不确定')
-        }
-    })
+        })
+    }
 }
 </script>

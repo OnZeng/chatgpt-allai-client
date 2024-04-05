@@ -32,12 +32,14 @@ const is = ref(false)
 
 
 onMounted(async () => {
-  is.value = true
   //读取本地数据
   stores.theme = get_local_theme()
   stores.token = get_local_token()
   stores.userinfo = get_local_userinfo()
-  if (!stores.token) return
+  if (!stores.token) {
+    is.value = true
+    return
+  }
   // 获取最新数据
   const result: any = await getuserinfo(api_base_url, stores.token)
   if (result.type === "error") {
@@ -69,5 +71,6 @@ onMounted(async () => {
     });
     stores.rollToTheBottom()
   }
+  is.value = true
 })
 </script>
