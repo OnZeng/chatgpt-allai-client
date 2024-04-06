@@ -32,7 +32,7 @@
 <script setup lang="ts">
 import { EllipsisHorizontalOutline, TrashOutline, Pencil } from '@vicons/ionicons5'
 import '../../assets/list-list.css'
-import { NIcon, useDialog, useMessage } from 'naive-ui'
+import { NIcon, useDialog, useMessage, NTag, NInput } from 'naive-ui'
 const message = useMessage()
 const dialog = useDialog()
 const {
@@ -59,7 +59,36 @@ const options: any = [
         icon: renderIcon(TrashOutline)
     }]
 const handleSelect = async (key: number, options: any, item: any, index: any) => {
-    if(key === 1) message.info('正在开发中...')
+    let tempTitle = ref('')
+    if (key === 1) {
+        dialog.info({
+            title: '',
+            content: () => {
+                return h(NInput, {
+                    type: "text",
+                    value: tempTitle.value,
+                    placeholder: "请输入新的标题",
+                    onUpdateValue: (value) => {
+                        tempTitle.value = value
+                    },
+                })
+            },
+            positiveText: '确定',
+            negativeText: '取消',
+            onPositiveClick: async () => {
+                if (tempTitle.value === '') return
+                if (tempTitle.value.trim() === '') return
+                // console.log(key, options, item)
+                const result = await updateDialogTitle(api_base_url, item.id, tempTitle.value, stores.token)
+                if (result.type === 'success') {
+                    stores.dialog_titles[index].title = tempTitle.value
+                    message.success('重命名成功')
+                    return
+                }
+                message.success('重命名失败')
+            }
+        })
+    }
     if (key === 2) {
         dialog.warning({
             title: '警告',
