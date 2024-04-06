@@ -13,7 +13,7 @@
                         </template>
                         <template #suffix>
                             <div class="list-list-box3">
-                                <n-dropdown :options="options" trigger="click"
+                                <n-dropdown :options="options" trigger="hover"
                                     @select="handleSelect($event, options, item, index)">
                                     <n-button size="small" :bordered="false">
                                         <template #icon>
@@ -62,7 +62,7 @@ const handleSelect = async (key: number, options: any, item: any, index: any) =>
     let tempTitle = ref('')
     if (key === 1) {
         dialog.info({
-            title: '',
+            title: '信息',
             content: () => {
                 return h(NInput, {
                     type: "text",
