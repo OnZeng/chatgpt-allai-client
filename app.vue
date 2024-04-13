@@ -36,41 +36,10 @@ onMounted(async () => {
   stores.theme = get_local_theme()
   stores.token = get_local_token()
   stores.userinfo = get_local_userinfo()
-  if (!stores.token) {
-    is.value = true
-    return
-  }
+  if (!stores.token) return is.value = true
   // 获取最新数据
-  const result: any = await getuserinfo(api_base_url, stores.token)
-  if (result.type === "error") {
-    window.localStorage.removeItem("userinfo");
-    window.localStorage.removeItem("token");
-    return
-  }
-  stores.userinfo = result
-  window.localStorage.setItem('userinfo', JSON.stringify(stores.userinfo))
-  const result2 = await getDialogList(api_base_url, stores.token)
-  stores.dialog_contents = result2.contents
-  stores.dialog_titles = result2.titles
-  // 页面初始化
-  if (stores.dialog_contents.length > 0) {
-    if (stores.userinfo.dialog_id === 1000) {
-      stores.dialog_index = stores.dialog_titles[stores.dialog_titles.length - 1].id
-    } else {
-      stores.dialog_index = stores.userinfo.dialog_id
-    }
-    // console.log(stores.dialog_index)
-    stores.dialog_contents.map((item: any) => {
-      if (item.d_id === stores.dialog_index) {
-        let temp = {
-          role: item.role,
-          content: item.content
-        }
-        stores.dialog_list.push(temp)
-      }
-    });
-    stores.rollToTheBottom()
-  }
+  const result: any = await useGet('/api/user/getInfo', '初始化', null)
+  if (result.type === 'success') await useGet('/api/dialog/getlist', '初始化', null)
   is.value = true
 })
 </script>

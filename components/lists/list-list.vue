@@ -6,7 +6,7 @@
         <template #default>
             <n-scrollbar style="max-height: 100%">
                 <n-list hoverable clickable v-for="(item, index) in stores.dialog_titles"
-                    :bordered="stores.dialog_index === item.id" @click="stores.changeDialog(item, index)">
+                    :bordered="stores.dialog_index === item.id" @click="stores.changeDialog(item)">
                     <n-list-item>
                         <template #default>
                             <div class="list-list-box2">{{ item.title }}</div>
@@ -78,8 +78,11 @@ const handleSelect = async (key: number, options: any, item: any, index: any) =>
             onPositiveClick: async () => {
                 if (tempTitle.value === '') return
                 if (tempTitle.value.trim() === '') return
-                // console.log(key, options, item)
-                const result = await updateDialogTitle(api_base_url, item.id, tempTitle.value, stores.token)
+                // 重命名
+                const result = await usePost('/api/dialog/updatetitle', '标准', {
+                    id: item.id,
+                    title: tempTitle.value.trim()
+                })
                 if (result.type === 'success') {
                     stores.dialog_titles[index].title = tempTitle.value
                     message.success('重命名成功')
@@ -97,7 +100,9 @@ const handleSelect = async (key: number, options: any, item: any, index: any) =>
             negativeText: '取消',
             onPositiveClick: async () => {
                 // console.log(key, options, item)
-                const result = await deleteDialogTitle(api_base_url, item.id, stores.token)
+                const result = await usePost('/api/dialog/deletetitle', '标准', {
+                    id: item.id
+                })
                 if (result.type === 'success') {
                     stores.dialog_list.length = 0
                     stores.dialog_titles.splice(index, 1)
@@ -106,9 +111,6 @@ const handleSelect = async (key: number, options: any, item: any, index: any) =>
                 }
                 message.success('删除失败')
             },
-            onNegativeClick: () => {
-                // message.error('不确定')
-            }
         })
     }
 }

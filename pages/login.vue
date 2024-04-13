@@ -110,63 +110,35 @@ const onSubmit = async () => {
         return
     }
     logining.value = true
-    const result = await login(api_base_url, loginForm.value)
-    logining.value = false
-    if (result.type === 'success') {
-        stores.token = result.token
-        stores.userinfo = result.data
-        window.localStorage.setItem('token', result.token)
-        window.localStorage.setItem('userinfo', JSON.stringify(result.data))
-        const result2 = await getDialogList(api_base_url, stores.token);
-        stores.dialog_contents = result2.contents;
-        stores.dialog_titles = result2.titles;
-        // 页面初始化
-        if (stores.dialog_contents.length > 0) {
-            if (stores.userinfo.dialog_id === 1000) {
-                stores.dialog_index = stores.dialog_titles[stores.dialog_titles.length - 1].id
-            } else {
-                stores.dialog_index = stores.userinfo.dialog_id
-            }
-            // console.log(stores.dialog_index)
-            stores.dialog_contents.map((item: any) => {
-                if (item.d_id === stores.dialog_index) {
-                    let temp = {
-                        role: item.role,
-                        content: item.content
-                    }
-                    stores.dialog_list.push(temp)
-                }
-            });
-            setTimeout(() => {
-                stores.rollToTheBottom()
-            }, 100);
-        }
-        message.success(result.message)
-        router.push('/')
+    // 登录
+    const result = await usePost('/api/user/login', '标准', loginForm.value)
+    if (result.type !== 'success') {
+        message.error(result.message);
     } else {
-        message.error(result.message)
+        // 获取会话列表
+        await useGet('/api/dialog/getlist', '初始化', null)
+        message.success(result.message);
+        router.push('/')
     }
-
+    logining.value = false
 }
 
 // 注册
 const onRegisterSubmit = async () => {
     const feedback = await registerFormRef.value?.validate()
-    if (!feedback) {
-        return
-    }
+    if (!feedback) return
     registering.value = true
-    const res = await register(api_base_url, registerForm.value)
-    registering.value = false
-    if (res.type === 'success') {
+    const res = await usePost('/api/user/register', '标准', registerForm.value)
+    if (res.type !== 'success') {
+        message.error(res.message)
+    } else {
         message.success(res.message)
         registerForm.value.email = ''
         registerForm.value.password = ''
         registerForm.value.repeat_password = ''
         registerForm.value.code = ''
-    } else {
-        message.error(res.message)
     }
+    registering.value = false
 
 }
 
@@ -183,10 +155,13 @@ const onSendCode = async (event: any) => {
         return
     }
     codeing.value = true
-    const res = await sendcode(api_base_url, registerForm.value.email)
+    const result = await useGet('/api/code/v1', '标准', { email: registerForm.value.email })
+    console.log(result)
     codeing.value = false
-    if (res.type === 'success') {
-        message.success(res.message)
+    if (result.type !== 'success') {
+        message.error(result.message)
+    } else {
+        message.success(result.message)
         codeTimeInterval.value = 60
         const tempTime = window.setInterval(() => {
             codeTimeInterval.value--
@@ -198,8 +173,6 @@ const onSendCode = async (event: any) => {
                 window.clearInterval(tempTime)
             }
         }, 1000)
-    } else {
-        message.error(res.message)
     }
 }
 onMounted(() => {

@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { useRouter } from "vue-router";
-import { output, output2 } from "~/utils/common/index";
+import { output } from "~/utils/common/index";
 import dialog_http from "~/utils/dialog_http";
 
 export const useUserStore = defineStore("userInfo", () => {
@@ -18,7 +18,7 @@ export const useUserStore = defineStore("userInfo", () => {
     role: "",
     avatar: "",
     email: "",
-    createdAt: "2022-03-31 17:18:51",
+    createdAt: "",
     useCount: 0,
     tokens: 0,
   });
@@ -84,9 +84,8 @@ export const useUserStore = defineStore("userInfo", () => {
       rollToTheBottom();
       dialog_is.value = false;
       dialog_laoding.value = false;
-      // event.preventDefault()
       myinfo.value.content = null;
-      // 发送请求1
+      // 请求对话
       const result: any = await dialog_http(
         api_base_url,
         chatgpt_model.value.model,
@@ -95,31 +94,21 @@ export const useUserStore = defineStore("userInfo", () => {
         token.value,
         dialog_index.value
       );
-      if (result === "请求失败") {
-        dialog_is.value = true;
-        return;
-      }
       // console.log(res.headers.get("Content-Type"));
       if (!result.body) return;
       const reader = result.body.getReader();
       // 调用流式输出
-      output2(reader, dialog_list, dialog_is, dialog_finish, rollToTheBottom);
-      // 发送请求2
-      const result2: any = await getuserinfo(api_base_url, token.value);
-      if (result2.type === "error") {
-        window.localStorage.removeItem("userinfo");
-        window.localStorage.removeItem("token");
-      }
-      userinfo.value = result2;
-      window.localStorage.setItem("userinfo", JSON.stringify(result.data));
-      dialog_index.value == userinfo.value.dialog_id;
-      // 发送请求3
-      const result3 = await getDialogList(api_base_url, token.value);
-      dialog_contents.value = result3.contents;
-      dialog_titles.value = result3.titles;
-      // 新会话?
-      if (dialog_index.value === 1000) {
-        dialog_index.value = result3.titles[result3.titles.length - 1].id;
+      output(reader, dialog_list, dialog_is, dialog_finish, rollToTheBottom);
+      // 获取用户信息
+      const result2: any = await useGet("/api/user/getInfo", "刷新", null);
+      if (result2.type === "success") {
+        const result3 = await useGet("/api/dialog/getlist", "刷新", null);
+        // console.log(result3);
+        // 新会话?
+        if (dialog_index.value === 1000) {
+          dialog_index.value =
+            result3.data.titles[result3.data.titles.length - 1].id;
+        }
       }
     }
   };
@@ -149,7 +138,7 @@ export const useUserStore = defineStore("userInfo", () => {
     dialog_index.value = 1000;
   };
   // 切换会话
-  const changeDialog = async (item: any, index: number) => {
+  const changeDialog = async (item: any) => {
     dialog_list.value.length = 0;
     dialog_index.value = item.id;
     dialog_contents.value.map((item: any) => {
