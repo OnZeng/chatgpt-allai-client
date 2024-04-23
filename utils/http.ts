@@ -36,8 +36,8 @@ export async function http(url: string, mode: string, method: any, data: any) {
       if (url === "/api/dialog/getlist") refreshDialog(result, mode);
       return result;
     })
+    // 错误处理
     .catch((err) => {
-      // 错误处理
       if (url === "/api/user/getInfo") errorHandler1(err, message);
       if (url === "/api/dialog/getlist") errorHandler2(err, message);
       return err.data;
