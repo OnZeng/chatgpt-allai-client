@@ -1,21 +1,10 @@
-// import type { FetchOptions, FetchRequest, FetchResponse } from "ofetch";
 import { createDiscreteApi, darkTheme, lightTheme } from "naive-ui";
-import {
-  login,
-  refreshDialog,
-  initDialog,
-  getInfo,
-} from "./responseHandler/success";
+import { login, refreshDialog, getInfo } from "./responseHandler/success";
 import { errorHandler1, errorHandler2 } from "./responseHandler/error";
 /**
  * @description 封装$fetch请求
  */
-export default async function http(
-  url: string,
-  mode: string,
-  method: any,
-  data: any
-) {
+export async function http(url: string, mode: string, method: any, data: any) {
   const stores = useUserStore();
   const {
     public: { api_base_url },
@@ -26,7 +15,7 @@ export default async function http(
   const { message } = createDiscreteApi(["message"], {
     configProviderProps: configProviderPropsRef,
   });
-  let option = {
+  const option = {
     method,
     body: data,
     query: data,

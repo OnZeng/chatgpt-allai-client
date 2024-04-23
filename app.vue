@@ -24,18 +24,15 @@ import './assets/app.css'
 import { darkTheme } from 'naive-ui'
 import { get_local_theme, get_local_token, get_local_userinfo } from './utils/common/index'
 
-
 const stores = useUserStore()
-const { public: { api_base_url } } = useRuntimeConfig()
 const is = ref(false)
-
 
 
 onMounted(async () => {
   //读取本地数据
   stores.theme = get_local_theme()
-  stores.token = get_local_token()
-  stores.userinfo = get_local_userinfo()
+  stores.$state.token = get_local_token()
+  stores.$state.userinfo = get_local_userinfo()
   if (!stores.token) return is.value = true
   // 获取最新数据
   const result: any = await useGet('/api/user/getInfo', '初始化', null)

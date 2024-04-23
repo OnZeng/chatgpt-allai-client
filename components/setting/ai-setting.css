@@ -1,0 +1,22 @@
+.s-box1 {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  z-index: 100;
+  pointer-events: none;
+}
+.s-box2 {
+  margin-top: 20px;
+  margin-left: 20px;
+  padding: 5px;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.s-box3 {
+  margin-top: 20px;
+  margin-right: 20px;
+  padding: 5px;
+  cursor: pointer;
+  pointer-events: auto;
+}

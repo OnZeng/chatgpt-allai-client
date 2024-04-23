@@ -12,14 +12,14 @@
                         <a href="https://github.com/OnZeng/chatgpt-allai-client" target="_blank">github</a>
                         <br />
                         <p>交流群</p>
-                        <img style="width: 100px;height: 100px;" src="../images/wx.png">
+                        <img style="width: 100px;height: 100px;" src="../images/wx.png" alt="loading...">
                     </n-scrollbar>
                 </n-card>
                 <n-card>
-                    <n-tabs class="card-tabs" default-value="signin" size="large" animated
+                    <n-tabs class="card-tabs" default-value="signing" size="large" animated
                         pane-wrapper-style="margin: 0 -4px"
                         pane-style="padding-left: 4px; padding-right: 4px; box-sizing: border-box;">
-                        <n-tab-pane name="signin" tab="登录">
+                        <n-tab-pane name="signing" tab="登录">
                             <n-form ref="loginFormRef" :model="loginForm" :rules="rules">
                                 <n-form-item-row label="用户名" path="email">
                                     <n-input v-model:value="loginForm.email" placeholder="输入邮箱" />
@@ -67,7 +67,7 @@
                                 <a href="https://github.com/OnZeng/chatgpt-allai-client" target="_blank">github</a>
                                 <br />
                                 <p>交流群</p>
-                                <img style="width: 100px;height: 100px;" src="../images/wx.png">
+                                <img style="width: 100px;height: 100px;" src="../images/wx.png" alt="loading">
                             </n-scrollbar>
                         </n-tab-pane>
                     </n-tabs>
@@ -79,12 +79,12 @@
 <script setup lang="ts">
 import '../assets/login.css'
 import { useMessage } from 'naive-ui'
-import { loginFormRef, registerFormRef, rules } from '@/utils/common/index'
+import { loginFormRef, registerFormRef, rules } from '~/utils/common'
 
 const router = useRouter()
 const stores = useUserStore()
 const message = useMessage()
-const { public: { api_base_url } } = useRuntimeConfig()
+
 
 const is_notice = ref(601)
 const codeTimeInterval: any = ref(0)
@@ -118,7 +118,7 @@ const onSubmit = async () => {
         // 获取会话列表
         await useGet('/api/dialog/getlist', '初始化', null)
         message.success(result.message);
-        router.push('/')
+        await router.push('/')
     }
     logining.value = false
 }
@@ -145,8 +145,7 @@ const onRegisterSubmit = async () => {
 // 验证码
 const onSendCode = async (event: any) => {
     event.preventDefault()
-    const pattern =
-        /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+    const pattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
     if (!pattern.test(registerForm.value.email)) {
         message.error('请输入正确的邮箱')
         return

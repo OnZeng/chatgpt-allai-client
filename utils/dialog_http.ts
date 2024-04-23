@@ -17,7 +17,6 @@ export default async function dialog_http(
       model,
       messages,
       temperature,
-      stream: true,
       id:id,
     }),
   });

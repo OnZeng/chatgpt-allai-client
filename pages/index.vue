@@ -7,6 +7,6 @@
 </template>
 <script setup lang="ts">
 import './assets/index.css'
-import { useUserStore } from '../stores/index'
+
 const stores = useUserStore()
 </script>

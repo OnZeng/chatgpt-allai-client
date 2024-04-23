@@ -102,8 +102,8 @@ export const useUserStore = defineStore("userInfo", () => {
       // 获取用户信息
       const result2: any = await useGet("/api/user/getInfo", "刷新", null);
       if (result2.type === "success") {
+        // 获取会话记录
         const result3 = await useGet("/api/dialog/getlist", "刷新", null);
-        // console.log(result3);
         // 新会话?
         if (dialog_index.value === 1000) {
           dialog_index.value =
@@ -143,7 +143,7 @@ export const useUserStore = defineStore("userInfo", () => {
     dialog_index.value = item.id;
     dialog_contents.value.map((item: any) => {
       if (item.d_id === dialog_index.value) {
-        let temp = {
+        const temp = {
           role: item.role,
           content: item.content,
         };

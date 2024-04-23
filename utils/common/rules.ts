@@ -1,5 +1,5 @@
-export const loginFormRef: any = ref(null)
-export const registerFormRef: any = ref(null)
+export const loginFormRef: any = ref(null);
+export const registerFormRef: any = ref(null);
 /**
  * @description 表单校验规则
  */
@@ -36,7 +36,7 @@ export const rules = {
     trigger: ["input", "blur"],
   },
   repeat_password: {
-    validator: (rule: any, value: any, c: any) => {
+    validator: (rule: any, value: any) => {
       if (!value.trim()) {
         return new Error("请输入确认密码");
       }

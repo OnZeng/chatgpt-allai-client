@@ -13,23 +13,22 @@
   gap: 10px;
 }
 
-
 @media screen and (max-width: 1300px) {
-  .send-box1{
+  .send-box1 {
     bottom: 40px;
   }
 }
 @media screen and (max-width: 1100px) {
-  .send-box1{
+  .send-box1 {
     bottom: 35px;
   }
-  .send-box2{
+  .send-box2 {
     width: 70%;
   }
 }
 
 @media screen and (max-width: 900px) {
-  .send-box1{
+  .send-box1 {
     bottom: 30px;
   }
 }

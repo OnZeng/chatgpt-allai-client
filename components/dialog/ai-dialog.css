@@ -30,29 +30,19 @@
   gap: 0 4px;
 }
 .d-right-style {
-  /* font-size: 12px; */
   margin-top: 20px;
   min-width: 30%;
-  max-width: 400px;
+  max-width: 80%;
   min-height: 40px;
-  /* background-color: rgb(40, 112, 234); */
-  /* border-radius: 3px; */
-  /* box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.12); */
-  /* color: white; */
   padding: 1em;
   white-space: pre-wrap;
   box-sizing: border-box;
 }
 .d-left-style {
-  /* font-size: 12px; */
   margin-top: 20px;
-  min-width: 40%;
+  min-width: 30%;
   max-width: 80%;
   min-height: 40px;
-  /* background-color: rgb(40, 112, 234); */
-  /* border-radius: 3px; */
-  /* box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.12); */
-  /* color: white; */
   padding: 0 1em;
   box-sizing: border-box;
 }
@@ -75,24 +65,24 @@
 @media screen and (max-width: 1100px) {
   .d-box2 {
     width: 80%;
-    padding:  80px 0 80px 0;
+    padding: 80px 0 80px 0;
   }
 }
 @media screen and (max-width: 900px) {
   .d-box2 {
     width: 90%;
-    padding:  75px 0 75px 0;
+    padding: 75px 0 75px 0;
   }
 }
 @media screen and (max-width: 800px) {
   .d-box2 {
     width: 95%;
-    padding:  70px 0 70px 0;
+    padding: 70px 0 70px 0;
   }
 }
 @media screen and (max-width: 600px) {
   .d-box2 {
     width: 99%;
-    padding:  65px 0 70px 0;
+    padding: 65px 0 70px 0;
   }
 }
