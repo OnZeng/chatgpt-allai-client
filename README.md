@@ -13,9 +13,8 @@ github地址(https://github.com/OnZeng/chatgpt-allai-client) <br />
 预览地址：[http://ai.startea.top](http://ai.startea.top) <br />
 接口文档(https://apifox.com/apidoc/shared-f06bc49e-3ecb-4971-a254-d46446faaa5a)
 
-### 微信交流群
-
-<img src="./images/wx.png" width="200">
+### 交流Q群
+[575160797](https://qm.qq.com/q/SCid1re1MW)
 
 ## 项目效果
 

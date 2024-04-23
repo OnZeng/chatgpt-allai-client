@@ -5,9 +5,10 @@
       <div class="login-box3">
         <n-card title="更新日志" class="login-notice">
           <n-scrollbar style="max-height: 400px">
-            <p>2024-4-4</p>
-            <p>1.支持多会话</p>
-            <p>2.修复部分bug</p>
+            <p>2024-4-24</p>
+            <p>1.修复移动端样式错误</p>
+            <p>2.优化代码结构</p>
+            <p>3.修复部分bug</p>
             开源地址：<a
               href="https://gitee.com/zmzm666/chatgpt-allai-client"
               target="_blank"
@@ -19,12 +20,10 @@
               >github</a
             >
             <br />
-            <p>交流群</p>
-            <img
-              style="width: 100px; height: 100px"
-              src="../images/wx.png"
-              alt="loading..."
-            />
+            <p>交流Q群</p>
+            <a href="https://qm.qq.com/q/gdZ5U1o0Du" target="_blank"
+              >575160797</a
+            >
           </n-scrollbar>
         </n-card>
         <n-card>
@@ -116,9 +115,10 @@
             </n-tab-pane>
             <n-tab-pane name="notice" tab="关于" v-if="is_notice < 601">
               <n-scrollbar style="max-height: 400px">
-                <p>2024-4-4</p>
-                <p>1.支持多会话</p>
-                <p>2.修复部分bug</p>
+                <p>2024-4-24</p>
+                <p>1.修复移动端样式错误</p>
+                <p>2.优化代码结构</p>
+                <p>3.修复部分bug</p>
                 开源地址：<a
                   href="https://gitee.com/zmzm666/chatgpt-allai-client"
                   target="_blank"
@@ -130,12 +130,10 @@
                   >github</a
                 >
                 <br />
-                <p>交流群</p>
-                <img
-                  style="width: 100px; height: 100px"
-                  src="../images/wx.png"
-                  alt="loading"
-                />
+                <p>交流Q群</p>
+                <a href="https://qm.qq.com/q/gdZ5U1o0Du" target="_blank"
+                  >575160797</a
+                >
               </n-scrollbar>
             </n-tab-pane>
           </n-tabs>
