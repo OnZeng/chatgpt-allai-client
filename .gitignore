@@ -1,0 +1,17 @@
+node_modules/
+.env
+*.log
+.DS_Store
+server/db.json
+client/.nuxt
+client/.output
+client/node_modules
+server/node_modules
+
+
+
+
+
+
+
+
