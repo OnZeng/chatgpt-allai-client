@@ -58,10 +58,10 @@
                 </svg>
               </button>
               <button class="session-delete" @click.stop="handleDeleteSession(session.id)" title="删除会话">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
             </div>
           </div>
         </div>
@@ -118,44 +118,44 @@
       <!-- 设置页面 -->
       <div v-if="showSettings" class="settings-overlay">
         <div class="settings-container">
-          <div class="settings-header">
-            <h2 class="settings-title">设置</h2>
-            <button class="settings-close-button" @click="showSettings = false">
-              <svg class="settings-close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
-          <div class="settings-content">
-            <div class="settings-section">
-              <h3 class="settings-section-title">外观</h3>
-              <div class="settings-item">
-                <div class="settings-item-label">主题</div>
-                <n-select v-model:value="themeName" :options="themeOptions" @update:value="handleThemeChange"
-                  class="settings-select" />
-              </div>
-            </div>
-            <div class="settings-section">
-              <h3 class="settings-section-title">账户</h3>
-              <div class="settings-item">
-                <div class="settings-item-info">
-                  <div class="settings-item-label">用户名</div>
-                  <div class="settings-item-value">{{ user?.username || '未设置' }}</div>
-                </div>
-              </div>
-              <div class="settings-item">
-                <div class="settings-item-info">
-                  <div class="settings-item-label">邮箱</div>
-                  <div class="settings-item-value">{{ user?.email || '未设置' }}</div>
-                </div>
-              </div>
-              <div class="settings-item">
-                <n-button type="error" block @click="handleLogout">
-                  登出
-                </n-button>
-              </div>
+        <div class="settings-header">
+          <h2 class="settings-title">设置</h2>
+          <button class="settings-close-button" @click="showSettings = false">
+            <svg class="settings-close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div class="settings-content">
+          <div class="settings-section">
+            <h3 class="settings-section-title">外观</h3>
+            <div class="settings-item">
+              <div class="settings-item-label">主题</div>
+              <n-select v-model:value="themeName" :options="themeOptions" @update:value="handleThemeChange"
+                class="settings-select" />
             </div>
           </div>
+          <div class="settings-section">
+            <h3 class="settings-section-title">账户</h3>
+            <div class="settings-item">
+              <div class="settings-item-info">
+                <div class="settings-item-label">用户名</div>
+                <div class="settings-item-value">{{ user?.username || '未设置' }}</div>
+              </div>
+            </div>
+            <div class="settings-item">
+              <div class="settings-item-info">
+                <div class="settings-item-label">邮箱</div>
+                <div class="settings-item-value">{{ user?.email || '未设置' }}</div>
+              </div>
+            </div>
+            <div class="settings-item">
+              <n-button type="error" block @click="handleLogout">
+                登出
+              </n-button>
+            </div>
+          </div>
+        </div>
         </div>
       </div>
 
@@ -178,7 +178,7 @@
                 :disabled="isLoading || isStreaming || !isAuthenticated" rows="1"
                 @keydown.enter.exact.prevent="handleSend" @keydown.shift.enter.exact.prevent="inputMessage += '\n'"
                 @input="autoResizeTextarea"></textarea>
-
+              
               <!-- 模型选择触发器 -->
               <div class="model-selector-wrapper" :class="{ disabled: isLoading || isStreaming || !isAuthenticated }">
                 <button type="button" class="model-selector-trigger" :class="{ active: showModelMenu }"
@@ -188,7 +188,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
-
+                
                 <!-- 模型选择弹窗 -->
                 <div class="model-menu" :class="{ active: showModelMenu }">
                   <div class="model-menu-container">
@@ -204,7 +204,7 @@
                         </svg>
                       </div>
                     </div>
-
+                    
                     <!-- 二级菜单：模型列表（悬浮显示） -->
                     <div class="model-menu-level model-level" :class="{ active: hoveredBrandId }"
                       v-if="hoveredBrandModels.length > 0" @mouseenter="clearHideTimer" @mouseleave="hideBrandModels">
@@ -224,7 +224,7 @@
                   </div>
                 </div>
               </div>
-
+              
               <button v-if="isStreaming" type="button" @click="handleStop" class="welcome-icon-button stop-button"
                 title="停止生成">
                 <svg class="welcome-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -354,7 +354,7 @@
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                     </svg>
                   </button>
-
+                  
                   <!-- 模型选择弹窗 -->
                   <div class="model-menu" :class="{ active: showModelMenu }">
                     <div class="model-menu-container">
@@ -370,7 +370,7 @@
                           </svg>
                         </div>
                       </div>
-
+                      
                       <!-- 二级菜单：模型列表（悬浮显示） -->
                       <div class="model-menu-level model-level" :class="{ active: hoveredBrandId }"
                         v-if="hoveredBrandModels.length > 0" @mouseenter="clearHideTimer" @mouseleave="hideBrandModels">
@@ -390,7 +390,7 @@
                     </div>
                   </div>
                 </div>
-
+                
                 <button v-if="isStreaming" type="button" @click="handleStop" class="input-button stop-button"
                   title="停止生成">
                   <svg class="input-icon" fill="currentColor" viewBox="0 0 24 24">
@@ -476,13 +476,13 @@ import { useTheme } from '@/composables/useTheme'
 import './index.css'
 
 const message = useMessage()
-const {
-  messages,
-  isLoading,
-  isStreaming,
+const { 
+  messages, 
+  isLoading, 
+  isStreaming, 
   currentChatId,
-  sendMessage,
-  stopStreaming,
+  sendMessage, 
+  stopStreaming, 
   loadHistory,
   createNewSession,
   loadSessions,
@@ -599,7 +599,7 @@ const loadAvailableModels = async () => {
   if (!isAuthenticated.value) {
     return
   }
-
+  
   try {
     const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:3001/api'
     const response = await fetch(`${API_BASE}/chat/models/available`, {
@@ -607,7 +607,7 @@ const loadAvailableModels = async () => {
         'Authorization': `Bearer ${token.value}`
       }
     })
-
+    
     if (response.ok) {
       const result = await response.json()
       if (result.brands) {
@@ -622,7 +622,7 @@ const loadAvailableModels = async () => {
             description: model.description || ''
           }))
         }))
-
+        
         // 默认选择第一个模型
         selectFirstModel()
       }
@@ -685,7 +685,7 @@ const hideBrandModels = () => {
     const menuElement = document.querySelector('.model-menu')
     const brandItem = document.querySelector('.brand-item:hover')
     const modelLevel = document.querySelector('.model-level:hover')
-
+    
     // 如果鼠标不在菜单区域内，才隐藏
     if (!menuElement?.matches(':hover') && !brandItem && !modelLevel) {
       hoveredBrandId.value = null
@@ -864,7 +864,7 @@ const handleSend = async () => {
 
   const content = inputMessage.value.trim()
   inputMessage.value = ''
-
+  
   // 重置textarea高度
   nextTick(() => {
     const textarea = document.querySelector('.textarea-field')

@@ -34,11 +34,11 @@ export async function initDB() {
     pool = mysql.createPool(dbConfig);
 
     // 删除所有现有表（如果存在）
-    // try {
-    //   await dropAllTables();
-    // } catch (error) {
-    //   console.log('删除表时出错（可能是首次运行）:', error.message);
-    // }
+    try {
+      await dropAllTables();
+    } catch (error) {
+      console.log('删除表时出错（可能是首次运行）:', error.message);
+    }
 
     // 初始化表结构
     await createTables();
@@ -69,14 +69,14 @@ async function dropAllTables() {
     `);
     
     // 删除所有表
-    for (const table of tables) {
-      try {
-        await connection.query(`DROP TABLE IF EXISTS \`${table.TABLE_NAME}\``);
-        console.log(`已删除表: ${table.TABLE_NAME}`);
-      } catch (error) {
-        console.error(`删除表 ${table.TABLE_NAME} 时出错:`, error.message);
-      }
-    }
+    // for (const table of tables) {
+    //   try {
+    //     await connection.query(`DROP TABLE IF EXISTS \`${table.TABLE_NAME}\``);
+    //     console.log(`已删除表: ${table.TABLE_NAME}`);
+    //   } catch (error) {
+    //     console.error(`删除表 ${table.TABLE_NAME} 时出错:`, error.message);
+    //   }
+    // }
     
     // 重新启用外键检查
     await connection.query('SET FOREIGN_KEY_CHECKS = 1');
@@ -269,22 +269,22 @@ async function createTables() {
         name VARCHAR(255) UNIQUE NOT NULL COMMENT '品牌名称',
         status VARCHAR(50) DEFAULT 'active' COMMENT '状态（active-启用，disabled-停用）',
         createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-        updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+        updatedAt DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
         INDEX idx_status (status)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='品牌表'
     `);
 
-    // 创建 models 表（模型表）
+    // 创建 models 表
     await connection.query(`
       CREATE TABLE IF NOT EXISTS models (
         id VARCHAR(255) PRIMARY KEY COMMENT '模型ID',
         brandId VARCHAR(255) NOT NULL COMMENT '品牌ID',
         name VARCHAR(255) NOT NULL COMMENT '模型名称',
-        serviceName VARCHAR(255) NOT NULL COMMENT '服务名称（全局唯一）',
+        serviceName VARCHAR(255) DEFAULT '' COMMENT '服务名称',
         description TEXT COMMENT '模型描述',
         status VARCHAR(50) DEFAULT 'active' COMMENT '状态（active-启用，disabled-停用）',
         createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-        updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+        updatedAt DATETIME ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
         INDEX idx_brandId (brandId),
         INDEX idx_status (status),
         INDEX idx_serviceName (serviceName),

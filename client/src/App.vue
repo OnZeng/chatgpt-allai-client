@@ -9,12 +9,13 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
 import { NConfigProvider, NMessageProvider, NDialogProvider } from 'naive-ui'
 import { useTheme } from '@/composables/useTheme'
 
 const { theme } = useTheme()
 </script>
+
+
 
 
 

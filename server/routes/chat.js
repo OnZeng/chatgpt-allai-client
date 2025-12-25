@@ -299,8 +299,8 @@ router.get('/history', async (ctx) => {
     } else {
       // 如果没有提供 chatId，获取该用户的所有聊天记录，按会话分组
       query = `SELECT id, chatId, userId, modelId, role, content, timestamp
-               FROM chats 
-               WHERE userId = ? 
+       FROM chats 
+       WHERE userId = ? 
                ORDER BY chatId, timestamp ASC`;
       params = [userId];
     }
@@ -309,18 +309,18 @@ router.get('/history', async (ctx) => {
 
     if (chatId) {
       // 返回单个会话的消息列表
-      ctx.body = {
+    ctx.body = {
         chatId: chatId,
         messages: chats.map(chat => ({
-          id: chat.id,
+        id: chat.id,
           chatId: chat.chatId,
-          userId: chat.userId,
-          modelId: chat.modelId || null,
-          role: chat.role,
-          content: chat.content,
-          timestamp: chat.timestamp.toISOString()
-        }))
-      };
+        userId: chat.userId,
+        modelId: chat.modelId || null,
+        role: chat.role,
+        content: chat.content,
+        timestamp: chat.timestamp.toISOString()
+      }))
+    };
     } else {
       // 按 chatId 分组返回所有会话的消息
       const groupedChats = {};

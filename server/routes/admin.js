@@ -538,22 +538,40 @@ router.delete('/models/:id', async (ctx) => {
     const db = getDB();
 
     // 检查模型是否存在
-    const [models] = await db.query('SELECT id FROM models WHERE id = ?', [id]);
+    const [models] = await db.query('SELECT id, name FROM models WHERE id = ?', [id]);
     if (models.length === 0) {
       ctx.status = 404;
       ctx.body = { error: '模型不存在' };
       return;
     }
 
+    // 检查是否有API密钥关联（虽然外键会自动删除，但可以给用户提示）
+    const [keys] = await db.query('SELECT COUNT(*) as count FROM api_keys WHERE modelId = ?', [id]);
+    const keyCount = keys[0].count;
+
+    // 检查是否有会话使用此模型
+    const [sessions] = await db.query('SELECT COUNT(*) as count FROM sessions WHERE modelId = ?', [id]);
+    const sessionCount = sessions[0].count;
+
+    // 删除模型（由于外键约束 ON DELETE CASCADE，关联的 api_keys 会自动删除）
     await db.query('DELETE FROM models WHERE id = ?', [id]);
 
     ctx.body = {
-      message: '模型删除成功'
+      message: '模型删除成功',
+      deletedKeys: keyCount,
+      affectedSessions: sessionCount
     };
   } catch (error) {
     console.error('删除模型错误:', error);
+    
+    // 检查是否是外键约束错误
+    if (error.code === 'ER_ROW_IS_REFERENCED_2' || error.code === '23000') {
+      ctx.status = 400;
+      ctx.body = { error: '无法删除模型：该模型正在被使用中' };
+    } else {
     ctx.status = 500;
-    ctx.body = { error: '删除模型失败' };
+      ctx.body = { error: '删除模型失败: ' + error.message };
+    }
   }
 });
 
@@ -596,29 +614,53 @@ router.patch('/models/:id/status', async (ctx) => {
 // 获取API密钥列表
 router.get('/keys', async (ctx) => {
   try {
-    const { page = 1, pageSize = 20 } = ctx.query;
+    const { page = 1, pageSize = 20, modelId, status } = ctx.query;
     const db = getDB();
 
+    // 构建查询条件
+    let whereConditions = [];
+    let whereParams = [];
+    
+    if (modelId) {
+      whereConditions.push('ak.modelId = ?');
+      whereParams.push(modelId);
+    }
+    if (status) {
+      whereConditions.push('ak.status = ?');
+      whereParams.push(status);
+    }
+    
+    const whereClause = whereConditions.length > 0 ? `WHERE ${whereConditions.join(' AND ')}` : '';
+
     // 获取总数
-    const [countResult] = await db.query('SELECT COUNT(*) as total FROM api_keys');
+    const [countResult] = await db.query(
+      `SELECT COUNT(*) as total FROM api_keys ak ${whereClause}`,
+      whereParams
+    );
     const total = countResult[0].total;
 
     // 获取分页数据
     const offset = (parseInt(page) - 1) * parseInt(pageSize);
     const [keys] = await db.query(
-      `SELECT id, serviceName, 
-              CONCAT(LEFT(apiKey, 8), '...', RIGHT(apiKey, 4)) as maskedKey,
-              status, createdAt, updatedAt
-       FROM api_keys
-       ORDER BY createdAt DESC
+      `SELECT ak.id, ak.modelId, ak.status, ak.createdAt, ak.updatedAt,
+              CONCAT(LEFT(ak.apiKey, 8), '...', RIGHT(ak.apiKey, 4)) as maskedKey,
+              m.serviceName, m.name as modelName, m.brandId, b.name as brandName
+       FROM api_keys ak
+       LEFT JOIN models m ON ak.modelId = m.id
+       LEFT JOIN brands b ON m.brandId = b.id
+       ${whereClause}
+       ORDER BY ak.createdAt DESC
        LIMIT ? OFFSET ?`,
-      [parseInt(pageSize), offset]
+      [...whereParams, parseInt(pageSize), offset]
     );
 
     ctx.body = {
       keys: keys.map(key => ({
         id: key.id,
-        serviceName: key.serviceName,
+        modelId: key.modelId,
+        serviceName: key.serviceName || '',
+        modelName: key.modelName || '',
+        brandName: key.brandName || '',
         maskedKey: key.maskedKey,
         status: key.status || 'active',
         createdAt: key.createdAt ? key.createdAt.toISOString() : null,
@@ -638,29 +680,40 @@ router.get('/keys', async (ctx) => {
 // 创建API密钥
 router.post('/keys', async (ctx) => {
   try {
-    const { serviceName, apiKey } = ctx.request.body;
+    const { modelId, apiKey } = ctx.request.body;
 
-    if (!serviceName || !apiKey) {
+    if (!modelId || !apiKey) {
       ctx.status = 400;
-      ctx.body = { error: '服务名称和API密钥都是必填项' };
+      ctx.body = { error: '模型和API密钥都是必填项' };
       return;
     }
 
     const db = getDB();
+    
+    // 检查模型是否存在
+    const [models] = await db.query('SELECT id, serviceName FROM models WHERE id = ?', [modelId]);
+    if (models.length === 0) {
+      ctx.status = 400;
+      ctx.body = { error: '模型不存在' };
+      return;
+    }
+
+    const model = models[0];
     const keyId = `key_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
     const now = new Date();
 
     await db.query(
-      `INSERT INTO api_keys (id, serviceName, apiKey, status, createdAt, updatedAt)
+      `INSERT INTO api_keys (id, modelId, apiKey, status, createdAt, updatedAt)
        VALUES (?, ?, ?, 'active', ?, ?)`,
-      [keyId, serviceName, apiKey, now, now]
+      [keyId, modelId, apiKey, now, now]
     );
 
     ctx.body = {
       message: 'API密钥创建成功',
       key: {
         id: keyId,
-        serviceName,
+        modelId,
+        serviceName: model.serviceName,
         maskedKey: `${apiKey.substring(0, 8)}...${apiKey.substring(apiKey.length - 4)}`,
         status: 'active'
       }
@@ -668,7 +721,7 @@ router.post('/keys', async (ctx) => {
   } catch (error) {
     console.error('创建API密钥错误:', error);
     ctx.status = 500;
-    ctx.body = { error: '创建API密钥失败' };
+    ctx.body = { error: '创建API密钥失败: ' + error.message };
   }
 });
 
